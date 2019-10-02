@@ -1,0 +1,6 @@
+/* eslint-disable import/prefer-default-export */
+export const AT = {
+  FETCH_RECIPES_PENDING: 'FETCH_RECIPES_PENDING',
+  FETCH_RECIPES_SUCCESS: 'FETCH_RECIPES_SUCCESS',
+  FETCH_RECIPES_ERROR: 'FETCH_RECIPES_ERROR'
+};
