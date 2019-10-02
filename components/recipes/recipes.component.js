@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  TouchableNativeFeedback
-} from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { Card, Button, Icon, Badge } from 'react-native-elements';
 export default class RecipesComponent extends Component {
   render() {
-    const { recipe, info } = this.props;
+    const { recipe, getRecipeDetailsCallback } = this.props;
     return (
       <View style={styles.container}>
-        <TouchableNativeFeedback
-          onPress={() => getRecipeDetailsCallback(recipe)}
-        >
+        <TouchableOpacity onPress={() => getRecipeDetailsCallback(recipe)}>
           <Card title={recipe.title}>
             <Image
               style={styles.image}
@@ -28,7 +20,7 @@ export default class RecipesComponent extends Component {
               status='error'
             />
           </Card>
-        </TouchableNativeFeedback>
+        </TouchableOpacity>
       </View>
     );
   }

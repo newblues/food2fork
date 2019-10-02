@@ -5,7 +5,7 @@ const initialState = {
   error: null,
   recipes: [],
   recipeDetails: {},
-  displayModal: false
+  isModalVisible: false
 };
 
 const recipesReducer = (state = initialState, action) => {
@@ -25,13 +25,18 @@ const recipesReducer = (state = initialState, action) => {
       return {
         ...state,
         pending: false,
-        error: action.error
+        error: action.payload
       };
     case AT.GET_RECIPE_DETAILS:
       return {
         ...state,
         recipeDetails: action.payload,
-        displayModal: true
+        isModalVisible: true
+      };
+    case AT.CLOSE_MODAL:
+      return {
+        ...state,
+        isModalVisible: false
       };
 
     default:
