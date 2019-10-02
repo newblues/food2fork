@@ -16,11 +16,19 @@ export const fetchRecipes = () => {
         return response.json();
       })
       .then(json => {
-        console.log('TLC: fetchRecipes -> json', json);
         dispatch({ type: AT.FETCH_RECIPES_SUCCESS, payload: json.recipes });
       })
       .catch(error => {
         dispatch({ type: AT.FETCH_RECIPES_ERROR, payload: error });
       });
+  };
+};
+
+export const getRecipeDetails = recipe => {
+  return dispatch => {
+    dispatch({
+      type: AT.GET_RECIPE_DETAILS,
+      payload: recipe
+    });
   };
 };

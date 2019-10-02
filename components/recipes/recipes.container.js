@@ -3,15 +3,28 @@ import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchRecipes } from '../../redux/actions/index';
+import { fetchRecipes, getRecipeDetails } from '../../redux/actions/index';
 
 import RecipesComponent from './recipes.component';
 import Loader from '../loader/loader';
 
 class RecipesContainer extends Component {
+  state = {
+    modalVisible: false
+  };
+
   componentDidMount = () => {
     const { fetchRecipes } = this.props;
     fetchRecipes();
+  };
+
+  setModalVisible = visible => {
+    this.setState({ modalVisible: visible });
+  };
+
+  getRecipeDetails = recipe => {
+    const { getRecipeDetails } = this.props;
+    getRecipeDetails(recipe);
   };
 
   renderRecipes = () => {
@@ -26,7 +39,11 @@ class RecipesContainer extends Component {
     }
     if (pending === false && recipes.length === 30)
       return recipes.map(recipe => (
-        <RecipesComponent key={recipe.recipe_id} recipe={recipe} />
+        <RecipesComponent
+          key={recipe.recipe_id}
+          recipe={recipe}
+          getRecipeDetailsCallback={this.getRecipeDetails}
+        />
       ));
   };
 
@@ -48,7 +65,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  ...bindActionCreators({ fetchRecipes }, dispatch)
+  ...bindActionCreators({ fetchRecipes, getRecipeDetails }, dispatch)
 });
 
 export default connect(

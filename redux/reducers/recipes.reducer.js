@@ -3,7 +3,9 @@ import { AT } from '../actions/action-types';
 const initialState = {
   pending: false,
   error: null,
-  recipes: []
+  recipes: [],
+  recipeDetails: {},
+  displayModal: false
 };
 
 const recipesReducer = (state = initialState, action) => {
@@ -24,6 +26,12 @@ const recipesReducer = (state = initialState, action) => {
         ...state,
         pending: false,
         error: action.error
+      };
+    case AT.GET_RECIPE_DETAILS:
+      return {
+        ...state,
+        recipeDetails: action.payload,
+        displayModal: true
       };
 
     default:
