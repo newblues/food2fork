@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -16,6 +16,7 @@ class RecipesContainer extends Component {
 
   renderRecipes = () => {
     const { recipes, pending, error } = this.props;
+
     if (pending) {
       return (
         <View style={styles.loaderContainer}>
@@ -23,17 +24,18 @@ class RecipesContainer extends Component {
         </View>
       );
     }
-    if (!pending && recipes.length === 30)
+    if (pending === false && recipes.length === 30)
       return recipes.map(recipe => (
         <RecipesComponent key={recipe.recipe_id} recipe={recipe} />
       ));
   };
 
   render() {
-    const { recipes, pending, error } = this.props;
-    console.log('TLC: RecipesContainer -> render -> recipes', recipes);
-
-    return <View styles={styles.container}>{this.renderRecipes()}</View>;
+    return (
+      <View style={styles.container}>
+        <ScrollView>{this.renderRecipes()}</ScrollView>
+      </View>
+    );
   }
 }
 
@@ -56,7 +58,6 @@ export default connect(
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
