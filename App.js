@@ -1,19 +1,25 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 
-export default function App() {
+import GlobalStyles from './styles/globalStyles';
+
+import Header from './components/header/header';
+
+const App = () => {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <SafeAreaView style={GlobalStyles.droidSafeArea}>
+        <Header />
+      </SafeAreaView>
     </View>
   );
-}
+};
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    backgroundColor: '#fff'
+  }
 });
