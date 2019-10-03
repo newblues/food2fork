@@ -1,15 +1,15 @@
 /* eslint-disable func-names */
 import { AT } from './action-types';
-import { API_KEY } from 'react-native-dotenv';
+// import { API_KEY } from 'react-native-dotenv';
 
-const d = '10b7bc9bddf4ce5a3fceaf5ecf61a988';
+const API_KEY = 'c6960a71248962f3aaf5063a6d68cdd3';
 
 const END_POINT = 'https://www.food2fork.com/api/';
 
 export const fetchRecipes = () => {
   return dispatch => {
     dispatch({ type: AT.FETCH_RECIPES_PENDING });
-    fetch(`${END_POINT}/search?key=${d}`)
+    fetch(`https://www.food2fork.com/api/search?key=${API_KEY}`)
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -35,7 +35,7 @@ export const getRecipeDetails = recipeId => {
   return dispatch => {
     dispatch({ type: AT.FETCH_RECIPES_PENDING });
 
-    fetch(`${END_POINT}/get?key=${d}&rId=${recipeId}`)
+    fetch(`${END_POINT}/get?key=${API_KEY}&rId=${recipeId}`)
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -57,7 +57,7 @@ export const getRecipeDetails = recipeId => {
 export const searchRecipes = searchInput => {
   return dispatch => {
     dispatch({ type: AT.FETCH_RECIPES_PENDING });
-    fetch(`${END_POINT}/search?key=${d}&q=${searchInput}`)
+    fetch(`${END_POINT}/search?key=${API_KEY}&q=${searchInput}`)
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);

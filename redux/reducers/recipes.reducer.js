@@ -46,7 +46,6 @@ const recipesReducer = (state = initialState, action) => {
         recipes: action.payload
       };
     }
-
     default:
       return state;
   }

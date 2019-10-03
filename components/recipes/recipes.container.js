@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -40,25 +40,26 @@ class RecipesContainer extends Component {
       );
     }
 
-    // handling error for limit usage ( 50 / day ) by api...
+    // handling error for limit usage ( 50 / day ) by free api...
     if (error) {
+      console.log('TLC: RecipesContainer -> renderRecipes -> error', error);
       return (
         <View style={styles.loaderContainer}>
-          <Text>You have reached the maximum daily limit</Text>
+          <Text>You have reached the maximum daily limit!</Text>
         </View>
       );
     }
 
-    // handling erro in case searchInput doest match any recipe
+    // handling error in case searchInput doest match any recipe
     if (!pending && recipes.length === 0) {
       return (
         <View style={styles.loaderContainer}>
-          <Text>Sorry, no recipe founded !</Text>
+          <Text>Sorry, no recipe founded!</Text>
         </View>
       );
     }
 
-    // watingin for api to finich request
+    // waitining for api to finish request
     if (!pending && !!recipes)
       return recipes.map(recipe => (
         <RecipesComponent
