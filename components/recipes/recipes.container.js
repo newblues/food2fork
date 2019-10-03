@@ -21,16 +21,16 @@ class RecipesContainer extends Component {
 
   getRecipeDetails = recipe => {
     const { getRecipeDetails } = this.props;
-    getRecipeDetails(recipe);
+    getRecipeDetails(recipe.recipe_id);
   };
 
   closeModal = () => {
     const { closeModal } = this.props;
     closeModal(false);
   };
+
   renderRecipes = () => {
     const { recipes, pending, error } = this.props;
-    console.log('TLC: RecipesContainer -> renderRecipes -> error', error);
 
     if (pending) {
       return (
@@ -40,6 +40,7 @@ class RecipesContainer extends Component {
       );
     }
 
+    // handling error for limit usage ( 50 / day ) by api...
     if (error) {
       return (
         <View style={styles.loaderContainer}>
@@ -48,7 +49,16 @@ class RecipesContainer extends Component {
       );
     }
 
-    if (pending === false && recipes.length === 30)
+    // case searchInput doest match any recipe
+    if (!pending && recipes.length === 0) {
+      return (
+        <View style={styles.loaderContainer}>
+          <Text>Sorry, no recipe founded !</Text>
+        </View>
+      );
+    }
+
+    if (!pending && !!recipes)
       return recipes.map(recipe => (
         <RecipesComponent
           key={recipe.recipe_id}
@@ -59,12 +69,13 @@ class RecipesContainer extends Component {
   };
 
   render() {
-    const { isModalVisible } = this.props;
+    const { isModalVisible, recipeDetails } = this.props;
 
     return (
       <View style={styles.container}>
         <ScrollView>{this.renderRecipes()}</ScrollView>
         <ModalComponent
+          recipeDetails={recipeDetails}
           isVisible={isModalVisible}
           closeModal={this.closeModal}
         ></ModalComponent>

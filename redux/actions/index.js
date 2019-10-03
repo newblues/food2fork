@@ -1,15 +1,15 @@
 /* eslint-disable func-names */
 import { AT } from './action-types';
+import { API_KEY } from 'react-native-dotenv';
 
-const b = '8b69d224faed6563aae36a10e92a4b2b';
-const a = 'cc4083bbf4b0641e9594b45c82480cf9';
-const API_KEY = '86a27bc155805a06ecc15c330fb9bb9a';
+const d = '10b7bc9bddf4ce5a3fceaf5ecf61a988';
+
 const END_POINT = 'https://www.food2fork.com/api/';
 
 export const fetchRecipes = () => {
   return dispatch => {
     dispatch({ type: AT.FETCH_RECIPES_PENDING });
-    fetch(`${END_POINT}/search?key=${b}`)
+    fetch(`${END_POINT}/search?key=${d}`)
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -31,12 +31,48 @@ export const fetchRecipes = () => {
   };
 };
 
-export const getRecipeDetails = recipe => {
+export const getRecipeDetails = recipeId => {
   return dispatch => {
-    dispatch({
-      type: AT.GET_RECIPE_DETAILS,
-      payload: recipe
-    });
+    dispatch({ type: AT.FETCH_RECIPES_PENDING });
+
+    fetch(`${END_POINT}/get?key=${d}&rId=${recipeId}`)
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then(json => {
+        return dispatch({
+          type: AT.GET_RECIPE_DETAILS,
+          payload: json.recipe
+        });
+      })
+      .catch(error => {
+        dispatch({ type: AT.FETCH_RECIPES_ERROR, payload: error });
+      });
+  };
+};
+
+export const searchRecipes = searchInput => {
+  return dispatch => {
+    dispatch({ type: AT.FETCH_RECIPES_PENDING });
+    fetch(`${END_POINT}/search?key=${d}&q=${searchInput}`)
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then(json => {
+        return dispatch({
+          type: AT.SEARCH_RECIPES,
+          payload: json.recipes
+        });
+      })
+      .catch(error => {
+        dispatch({ type: AT.FETCH_RECIPES_ERROR, payload: error });
+      });
   };
 };
 

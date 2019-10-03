@@ -29,6 +29,7 @@ export default class RecipesComponent extends Component {
 const styles = StyleSheet.create({
   image: {
     width: 300,
-    height: 200
+    height: 200,
+    marginBottom: 10
   }
 });

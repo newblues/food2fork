@@ -30,6 +30,7 @@ const recipesReducer = (state = initialState, action) => {
     case AT.GET_RECIPE_DETAILS:
       return {
         ...state,
+        pending: false,
         recipeDetails: action.payload,
         isModalVisible: true
       };
@@ -38,6 +39,13 @@ const recipesReducer = (state = initialState, action) => {
         ...state,
         isModalVisible: false
       };
+    case AT.SEARCH_RECIPES: {
+      return {
+        ...state,
+        pending: false,
+        recipes: action.payload
+      };
+    }
 
     default:
       return state;
