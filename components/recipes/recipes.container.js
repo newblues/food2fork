@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -49,7 +49,7 @@ class RecipesContainer extends Component {
       );
     }
 
-    // case searchInput doest match any recipe
+    // handling erro in case searchInput doest match any recipe
     if (!pending && recipes.length === 0) {
       return (
         <View style={styles.loaderContainer}>
@@ -58,6 +58,7 @@ class RecipesContainer extends Component {
       );
     }
 
+    // watingin for api to finich request
     if (!pending && !!recipes)
       return recipes.map(recipe => (
         <RecipesComponent

@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 
-export default class Loader extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size='large' color='#F9260C' />
-      </View>
-    );
-  }
-}
+const Loader = () => {
+  return (
+    <View style={styles.container}>
+      <ActivityIndicator size='large' color='#F9260C' />
+    </View>
+  );
+};
+
+export default Loader;
 
 const styles = StyleSheet.create({
   container: {
